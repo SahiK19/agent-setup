@@ -3,13 +3,15 @@
 import time
 import json
 import re
+import os
 from datetime import datetime, timedelta, timezone
 
 import requests
 
 API_ENDPOINT = "http://18.142.200.244:5000/api/correlation"
 API_KEY = "ids_vm_secret_key_123"
-CORRELATOR_AGENT_ID = "vm-correlator-01"
+CORRELATOR_AGENT_ID = os.environ.get("AGENT_ID", "vm-correlator-01")
+AGENT_NAME = os.environ.get("AGENT_NAME", "agent2")
 
 # ---------- CONFIG ----------
 

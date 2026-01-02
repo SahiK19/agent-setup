@@ -13,7 +13,8 @@ CORR_OFFSET_FILE = f"{STATE_DIR}/correlation.offset"
 
 API_BASE = "http://18.142.200.244:5000/api"
 API_KEY = "ids_vm_secret_key_123"
-CORRELATOR_AGENT_ID = "vm-correlator-01"
+CORRELATOR_AGENT_ID = os.environ.get("AGENT_ID", "vm-correlator-01")
+AGENT_NAME = os.environ.get("AGENT_NAME", "agent2")
 
 PUSH_INTERVAL = 5  # seconds
 # =========================================
@@ -67,7 +68,7 @@ def push_events(file_path, offset_file, endpoint, source, correlated):
         event["correlated"] = correlated
         # 🔑 Inject agent_id ONLY for correlation
         if source == "correlation":
-            event["agent_id"] = CORRELATOR_AGENT_ID
+            event["agent_name"] = AGENT_NAME
             print(f"[PUSH] {source} event →", event.get("correlation_id", "no-id"))
         
         try:
