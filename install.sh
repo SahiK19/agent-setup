@@ -12,9 +12,16 @@ sudo apt-get install -y python3 python3-pip curl jq rsyslog logrotate
 echo "[3/8] Installing Snort..."
 sudo apt-get install -y snort
 
-echo "[4/8] Installing Python requirements..."
-sudo pip3 install --upgrade pip >/dev/null
-sudo pip3 install -r "${REPO_DIR}/requirements.txt" >/dev/null
+echo "[4/8] Installing Python requirements (venv)..."
+sudo apt-get install -y python3-venv
+
+# Create venv under /opt/ids-agent (we create the folder first)
+sudo mkdir -p /opt/ids-agent
+sudo python3 -m venv /opt/ids-agent/venv
+
+# Install requirements using venv pip
+sudo /opt/ids-agent/venv/bin/pip install --upgrade pip >/dev/null
+sudo /opt/ids-agent/venv/bin/pip install -r "${REPO_DIR}/requirements.txt" >/dev/null
 
 echo "[5/8] Deploying scripts to /opt/ids-agent..."
 sudo rm -rf /opt/ids-agent
