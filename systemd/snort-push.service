@@ -1,0 +1,27 @@
+[Unit]
+Description=Snort Log Push Service (VM → EC2 Dashboard)
+After=network-online.target snort.service
+Wants=network-online.target
+Requires=snort.service
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/ids
+
+ExecStart=/usr/bin/python3 -u /opt/ids/snort_push.py
+
+Restart=always
+RestartSec=3
+
+# Ensure file access
+LimitNOFILE=65535
+
+# Force unbuffered logs
+Environment=PYTHONUNBUFFERED=1
+
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
