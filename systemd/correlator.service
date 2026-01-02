@@ -12,7 +12,7 @@ Environment="PYTHONPATH=/opt/ids-agent/scripts"
 Environment=PYTHONUNBUFFERED=1
 
 WorkingDirectory=/opt/ids-agent/scripts
-ExecStart=/opt/ids-agent/venv/bin/python -u /opt/ids-agent/scripts/correlate.py
+ExecStart=/bin/bash -lc '/opt/ids-agent/venv/bin/python3 -u /opt/ids-agent/scripts/correlate.py >> /var/log/ids-agent/correlator.log 2>&1'
 
 Restart=always
 RestartSec=5
