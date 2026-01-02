@@ -7,20 +7,19 @@ Requires=snort.service
 [Service]
 Type=simple
 User=root
-
 EnvironmentFile=/etc/ids-agent/agent.env
 Environment="PYTHONPATH=/opt/ids-agent/scripts"
 Environment=PYTHONUNBUFFERED=1
-
 WorkingDirectory=/opt/ids-agent/scripts
-nano systemd/snort-push.service
+
+ExecStart=/opt/ids-agent/venv/bin/python3 -u /opt/ids-agent/scripts/snort_push.py
 
 Restart=always
 RestartSec=3
 LimitNOFILE=65535
-
 StandardOutput=journal
 StandardError=journal
 
 [Install]
 WantedBy=multi-user.target
+EOF
