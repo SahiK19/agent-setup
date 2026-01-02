@@ -7,18 +7,17 @@ Requires=snort.service
 [Service]
 Type=simple
 User=root
-WorkingDirectory=/opt/ids
 
-ExecStart=/usr/bin/python3 -u /opt/ids/snort_push.py
+EnvironmentFile=/etc/ids-agent/agent.env
+Environment="PYTHONPATH=/opt/ids-agent/scripts"
+Environment=PYTHONUNBUFFERED=1
+
+WorkingDirectory=/opt/ids-agent/scripts
+ExecStart=/usr/bin/python3 -u /opt/ids-agent/scripts/snort_push.py
 
 Restart=always
 RestartSec=3
-
-# Ensure file access
 LimitNOFILE=65535
-
-# Force unbuffered logs
-Environment=PYTHONUNBUFFERED=1
 
 StandardOutput=journal
 StandardError=journal

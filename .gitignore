@@ -1,0 +1,13 @@
+# Python caches
+__pycache__/
+*.pyc
+*.pyo
+
+# Logs / outputs
+logs/*.log
+*.log
+*.json
+
+# Secrets
+config/agent.env
+.env
