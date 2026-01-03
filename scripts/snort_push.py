@@ -5,12 +5,13 @@ import re
 import requests
 from datetime import datetime, timezone
 
-SNORT_LOG = "/var/log/snort/snort.alert.fast"
 
-API_URL = "http://18.142.200.244:5000/api/snort"
-API_KEY = "ids_vm_secret_key_123"
+import os
 
-AGENT_ID = "vm-snort-01"
+API_BASE = os.environ.get("DASHBOARD_API_BASE_URL", "http://18.142.200.244:5000").rstrip("/")
+API_URL = f"{API_BASE}/api/snort"
+API_KEY = os.environ.get("API_KEY", "ids_vm_secret_key_123")
+AGENT_ID = os.environ.get("AGENT_ID", "vm-snort-01")
 
 
 def parse_snort_line(line: str) -> dict:
